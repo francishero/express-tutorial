@@ -3,7 +3,9 @@ var express=require('express');
 var bodyParser=require('body-parser');
 var path=require('path');
 var expressValidator=require('express-validator');
+var mongojs=require('mongojs');
 
+var db=mongojs('customerapp',['users']);
 var app=express();
 
 //middleware
@@ -26,7 +28,7 @@ app.use(express.static(path.join(__dirname,'public')));
 //global variables middleware
 
 app.use((req,res,next)=>{
-	res.locals.errors=null;
+	res.locals.errors=[];
 	next();
 })
 
@@ -72,7 +74,13 @@ var users=[
 
 
 app.get('/',(req,res)=>{
-	res.render('index',{title:'customers',users:users})
+
+	//db
+	db.users.find((err,docs)=>{
+		console.log(docs);
+		res.render('index',{title:'customers',users:docs})
+	})
+	
 })
 
 //handle the post request from the index.ejs form
@@ -100,7 +108,13 @@ app.post('/users/add',(req,res)=>{
 		last_name :req.body.last_name,
 		email :req.body.email
 	}
-	res.send(newUser);
+	//insert the created user into db
+	db.users.insert(newUser,(err,result)=>{
+		if(err)
+			console.log(err)
+		//just redirect to homepage
+		res.redirect('/');
+	})
 
 	}
 	
