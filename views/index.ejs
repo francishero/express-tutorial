@@ -1,6 +1,12 @@
 
 <% include partials/header %>
 <h1>Add Customer</h1>
+<% errors.forEach(function(error){
+	%>
+	<ul><li><%= error.msg %></li>
+	</ul>
+	<%
+}) %>
 <%# action is the route that will respond to the action %>
 <form method="POST" action="/users/add">
 	<label>First Name</label><br>
