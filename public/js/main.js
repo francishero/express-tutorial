@@ -13,7 +13,7 @@ function deleteUser()
 		//make an ajax call
 		$.ajax({
 			type:'DELETE',
-			url:'/users/delete/'+$('.delete-user').data('id')
+			url:'/users/delete/'+$(this).data('id')
 		}).done((response)=>{
 			window.location.replace('/');
 		})
@@ -21,4 +21,10 @@ function deleteUser()
 	else{
 		return false;
 	}
+}
+
+function confirm(msg){
+	if(msg)
+		return true;
+	return false;
 }

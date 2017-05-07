@@ -6,6 +6,7 @@ var expressValidator=require('express-validator');
 var mongojs=require('mongojs');
 
 var db=mongojs('customerapp',['users']);
+var ObjectId=mongojs.ObjectId;
 var app=express();
 
 //middleware
@@ -120,7 +121,19 @@ app.post('/users/add',(req,res)=>{
 	
 
 	
-})
+});
+
+//deletion router
+app.delete('users/delete/:id',(req,res)=>{
+	//delete user from db
+	db.users.remove({_id:ObjectID(req.params.id)},(err)=>{
+		if(err)
+		{
+			console.log(err);
+		}
+		res.redirect('/');
+	})
+});
 
 app.listen(3004,()=>{
 	console.log("Server running on port 3000");
