@@ -1,0 +1,14 @@
+{
+  "name": "express-tutor",
+  "version": "1.0.0",
+  "description": "Learning the express framework",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Francis Miyoba",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.15.2"
+  }
+}
